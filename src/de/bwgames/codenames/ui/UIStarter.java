@@ -10,15 +10,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class UIStarter extends Application{
 	
-    @Override
+    protected double xOffset;
+	protected double yOffset;
+
+
+	@Override
     public void start(Stage primaryStage) throws Exception{
-		URI uri = Paths.get("C:\\dev\\codenames\\Codenames\\test").toUri();
-		Game game = new Game(0, uri);
-    	
-    	
+    	Game game = StartDialog.createGame(primaryStage);
+    	if(game == null) {
+    		System.exit(0);
+    	}
         FXMLLoader fxmlMainView = new FXMLLoader();
         Parent mainView = fxmlMainView.load(Paths.get("C:\\dev\\codenames\\Codenames\\codenames.fxml").toUri().toURL().openStream());
         MainViewController mainViewController = (MainViewController) fxmlMainView.getController();
@@ -29,17 +34,22 @@ public class UIStarter extends Application{
         OverviewController overviewController = (OverviewController) fxmlOverview.getController();
         overviewController.start(game);
         
-        Stage dialog = new Stage();
+        Stage dialog = new Stage(StageStyle.UNDECORATED);
         dialog.setScene(new Scene(overview, 800, 500));
         dialog.show();
-        
+        overview.setOnMousePressed(event -> {
+		    xOffset = dialog.getX() - event.getScreenX();
+		    yOffset = dialog.getY() - event.getScreenY();
+		});
+        overview.setOnMouseDragged(event -> {
+			dialog.setX(event.getScreenX() + xOffset);
+			dialog.setY(event.getScreenY() + yOffset);
+		});
         
         primaryStage.setTitle("Codenames");
         primaryStage.setScene(new Scene(mainView, 800, 500));
         primaryStage.show();
-        
-        
-        
+        primaryStage.setOnCloseRequest(ev->System.exit(0));
     }
 
 

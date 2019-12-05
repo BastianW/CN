@@ -15,6 +15,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
@@ -90,6 +92,8 @@ public class MainViewController {
 			button.setOnAction(event -> {
 				String id = ((Node) event.getSource()).getId();
 				GameState gameState = game.set(Integer.parseInt(id), game.getPlayer());
+				System.out.println(gameState);
+				updateUI(game);
 				if (gameState == GameState.SWITCH_PLAYER) {
 					switchPlayer(game);
 				}else if(gameState ==  GameState.WIN) {
@@ -97,8 +101,7 @@ public class MainViewController {
 				}else if(gameState ==  GameState.LOOSE) {
 					endGame(GameState.LOOSE, game.getPlayer());
 				}
-				System.out.println(gameState);
-				updateUI(game);
+
 			});
 			AnchorPane.setTopAnchor(button, 0.);
 			AnchorPane.setLeftAnchor(button, 0.);
@@ -110,12 +113,12 @@ public class MainViewController {
 	}
 
 	private void endGame(GameState state, WordState player) {
-		Stage dialog = new Stage();
-		dialog.initOwner(gameBoard.getScene().getWindow());
-		dialog.initModality(Modality.APPLICATION_MODAL);
-		dialog.setScene(new Scene(new Label(player + " " +state), 80, 50));
-		dialog.setOnCloseRequest(e->System.exit(0));
-		dialog.showAndWait();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("End of Game");
+		alert.setHeaderText(null);
+		alert.setContentText(player + " " +state);
+		alert.setOnCloseRequest(e->System.exit(0));
+		alert.showAndWait();
 	}
 
 

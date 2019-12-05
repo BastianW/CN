@@ -81,33 +81,40 @@ public class Game {
 
 	public GameState set(int index, WordState state) {
 		if (wordStates[index] == WordState.BLACK) {
+			wordStates[index] = WordState.BLACK_DETECTED;
 			return GameState.LOOSE;
 		}
+		
+		GameState newGameState = check(index, state, WordState.BLUE, WordState.RED);
+		if(newGameState == null) {
+			newGameState = check(index, state, WordState.RED, WordState.BLUE);
+		}
+		
+		if(newGameState == null) {
+			newGameState = GameState.CONTINUE;
+		}
+		return newGameState;
+	}
 
-		if (state == WordState.BLUE) {
-			if (wordStates[index] == WordState.BLUE) {
-				wordStates[index] = WordState.BLUE_DETECTED;
-				if(checkIfNoStateIs(WordState.BLUE)) {
+	private GameState check(int index, WordState stateToSet, WordState rightState, WordState wrongState) {
+		if (stateToSet == rightState) {
+			if (wordStates[index] == rightState) {
+				wordStates[index] = WordState.valueOf(rightState+"_DETECTED");
+				if(checkIfNoStateIs(rightState)) {
 					return GameState.WIN;
 				}
 				return GameState.CONTINUE;
 			} else {
-				return GameState.SWITCH_PLAYER;
-			}
-		}
-
-		if (state == WordState.RED) {
-			if (wordStates[index] == WordState.RED) {
-				wordStates[index] = WordState.RED_DETECTED;
-				if(checkIfNoStateIs(WordState.RED)) {
-					return GameState.WIN;
+				if(wordStates[index] == wrongState) {
+					wordStates[index] = WordState.valueOf(wrongState+"_DETECTED");
+					if(checkIfNoStateIs(wrongState)) {
+						return GameState.LOOSE;
+					}
 				}
-				return GameState.CONTINUE;
-			} else {
 				return GameState.SWITCH_PLAYER;
 			}
 		}
-		return GameState.CONTINUE;
+		return null;
 	}
 
 	private boolean checkIfNoStateIs(WordState stateWhichShouldNtBeThere) {
