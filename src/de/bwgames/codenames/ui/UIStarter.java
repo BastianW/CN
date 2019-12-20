@@ -1,6 +1,5 @@
 package de.bwgames.codenames.ui;
 
-import java.net.URI;
 import java.nio.file.Paths;
 
 import de.bwgames.codenames.Game;
@@ -47,7 +46,7 @@ public class UIStarter extends Application{
 		});
         
         primaryStage.setTitle("Codenames");
-        primaryStage.setScene(new Scene(mainView, 800, 500));
+        primaryStage.setScene(new Scene(mainView, 1200, 800));
         primaryStage.show();
         primaryStage.setOnCloseRequest(ev->System.exit(0));
     }

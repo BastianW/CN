@@ -4,16 +4,14 @@
 package de.bwgames.codenames.ui;
 
 import de.bwgames.codenames.Game;
-import de.bwgames.codenames.GameState;
 import de.bwgames.codenames.WordState;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 /**
  * @author Bastian
@@ -43,6 +41,9 @@ public class OverviewController {
 			label.setText(word);
 			label.setMaxWidth(Double.MAX_VALUE);
 			label.setMaxHeight(Double.MAX_VALUE);
+			label.setTextAlignment(TextAlignment.CENTER);
+			label.setAlignment(Pos.CENTER);
+			label.setFont(new Font("Cambria", 24));
 			setStyleToLabel(game, label);
 			
 			AnchorPane.setTopAnchor(label, 0.);
@@ -63,15 +64,15 @@ public class OverviewController {
 			break;
 		case BLUE:
 		case BLUE_DETECTED:
-			label.setStyle("-fx-background-color: #0000ff;");
+			label.setStyle("-fx-background-color: #00bfff;");
 			break;
 		case RED:
 		case RED_DETECTED:
-			label.setStyle("-fx-background-color: #ff0000;");
+			label.setStyle("-fx-background-color: #ff4040;");
 			break;
 		case BLACK:
 		case BLACK_DETECTED:
-			label.setStyle("-fx-background-color: #f2f2f2;");
+			label.setStyle("-fx-background-color: #919191;");
 			break;
 		default:
 			break;

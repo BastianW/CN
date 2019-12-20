@@ -58,7 +58,7 @@ public final class StartDialog {
 		spinner.setText(new Random().nextInt()+"");
 
 		TextField dataPath = new TextField();
-		dataPath.setText(DEFAULT_PATH + "\\test");
+		dataPath.setText(DEFAULT_PATH + "\\gamesets\\orginal");
 		Button fileChooserOpener = new Button("...");
 		fileChooserOpener.setOnAction(e -> {
 			FileChooser fileChooser = new FileChooser();
