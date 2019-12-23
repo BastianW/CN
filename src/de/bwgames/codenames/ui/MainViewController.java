@@ -112,7 +112,7 @@ public class MainViewController {
 		alert.setTitle("End of Game");
 		alert.setHeaderText(null);
 		alert.setContentText(player + " " +state);
-		alert.setOnCloseRequest(e->System.exit(0));
+//		alert.setOnCloseRequest(e->System.exit(0));
 		alert.showAndWait();
 	}
 
