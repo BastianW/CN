@@ -128,16 +128,15 @@ public class MainViewController {
 			case BLUE:
 			case EMPTY:
 			case RED:
-				button.setStyle("");
 				break;
 			case BLUE_DETECTED:
-				button.setStyle("-fx-background-color: #0000ff;");
+				button.setBackground(Colors.BLUE);
 				break;
 			case RED_DETECTED:
-				button.setStyle("-fx-background-color: #ff0000;");
+				button.setBackground(Colors.RED);
 				break;
 			case BLACK_DETECTED:
-				button.setStyle("-fx-background-color: #f2f2f2;");
+				button.setBackground(Colors.BLACK);
 				break;
 			default:
 				break;
@@ -150,11 +149,16 @@ public class MainViewController {
 	@FXML
 	public void openAbout(ActionEvent actionEvent) {
 		Stage stage = new Stage();
-		stage.setScene(new Scene(new AnchorPane(), 1200, 800));
+		stage.setScene(new Scene(new AnchorPane(), 800, 500));
 		stage.showAndWait();
 		
 	}
 	
+	
+	@FXML
+	public void quit(ActionEvent actionEvent) {
+		System.exit(0);
+	}
 	
 
 }

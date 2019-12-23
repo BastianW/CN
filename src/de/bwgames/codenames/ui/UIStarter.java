@@ -33,8 +33,9 @@ public class UIStarter extends Application{
         OverviewController overviewController = (OverviewController) fxmlOverview.getController();
         overviewController.start(game);
         
-        Stage dialog = new Stage(StageStyle.UNDECORATED);
-        dialog.setScene(new Scene(overview, 800, 500));
+        Stage dialog = new Stage(StageStyle.UNIFIED);
+        dialog.setOnCloseRequest(e->e.consume());
+        dialog.setScene(new Scene(overview, 1200, 800));
         dialog.show();
         overview.setOnMousePressed(event -> {
 		    xOffset = dialog.getX() - event.getScreenX();

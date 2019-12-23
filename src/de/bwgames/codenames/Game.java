@@ -1,6 +1,8 @@
 package de.bwgames.codenames;
 
 import java.net.URI;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import de.bwgames.codenames.words.WordRepositoryFactory;
@@ -16,6 +18,8 @@ public class Game {
 	private String[] words;
 	private WordState[] wordStates = new WordState[GAME_SIZE];
 	private WordState currentPlayer;
+	
+	private List<GameListener> listeners = new LinkedList<>();
 
 	public Game(long randomGeneratorKey, URI wordRepoSource) {
 		words = repoFactory.createWordRepo(wordRepoSource).getRandomWords(randomGeneratorKey, 25);
@@ -82,6 +86,7 @@ public class Game {
 	public GameState set(int index, WordState state) {
 		if (wordStates[index] == WordState.BLACK) {
 			wordStates[index] = WordState.BLACK_DETECTED;
+			callListener();
 			return GameState.LOOSE;
 		}
 		
@@ -93,7 +98,14 @@ public class Game {
 		if(newGameState == null) {
 			newGameState = GameState.CONTINUE;
 		}
+		callListener();
 		return newGameState;
+	}
+
+	private void callListener() {
+		for (GameListener gameListener : listeners) {
+			gameListener.update(()->this);
+		}
 	}
 
 	private GameState check(int index, WordState stateToSet, WordState rightState, WordState wrongState) {
@@ -124,6 +136,10 @@ public class Game {
 			}
 		}
 		return true;
+	}
+	
+	public void register(GameListener listener) {
+		listeners.add(listener);
 	}
 
 }
