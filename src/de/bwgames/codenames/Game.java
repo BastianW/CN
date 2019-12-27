@@ -90,6 +90,12 @@ public class Game {
 			return GameState.LOOSE;
 		}
 		
+		if (wordStates[index] == WordState.EMPTY) {
+			wordStates[index] = WordState.EMPTY_DETECTED;
+			callListener();
+			return GameState.SWITCH_PLAYER;
+		}
+		
 		GameState newGameState = check(index, state, WordState.BLUE, WordState.RED);
 		if(newGameState == null) {
 			newGameState = check(index, state, WordState.RED, WordState.BLUE);

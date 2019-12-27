@@ -83,22 +83,22 @@ public class OverviewController implements GameListener{
 		WordState[] wordStates = game.getWordStates();
 		int i = Integer.parseInt(label.getId());
 		switch (wordStates[i]) {
+		case BLACK:
+		case BLUE:
 		case EMPTY:
+		case RED:
 			label.setBackground(Colors.WHITE);
 			break;
-		case BLUE_DETECTED:
+		case EMPTY_DETECTED:
 			setCross(i, label);
-		case BLUE:
+			break;
+		case BLUE_DETECTED:
 			label.setBackground(Colors.BLUE);
 			break;
 		case RED_DETECTED:
-			setCross(i, label);
-		case RED:
 			label.setBackground(Colors.RED);
 			break;
 		case BLACK_DETECTED:
-			setCross(i, label);
-		case BLACK:
 			label.setBackground(Colors.BLACK);
 			break;
 		default:

@@ -24,12 +24,12 @@ public class UIStarter extends Application{
     		System.exit(0);
     	}
         FXMLLoader fxmlMainView = new FXMLLoader();
-        Parent mainView = fxmlMainView.load(Paths.get("C:\\dev\\codenames\\Codenames\\codenames.fxml").toUri().toURL().openStream());
+        Parent mainView = fxmlMainView.load(getClass().getResourceAsStream("codenames.fxml"));
         MainViewController mainViewController = (MainViewController) fxmlMainView.getController();
         mainViewController.start(game);
         
         FXMLLoader fxmlOverview = new FXMLLoader();
-        AnchorPane overview = fxmlOverview.load(Paths.get("C:\\dev\\codenames\\Codenames\\overview.fxml").toUri().toURL().openStream());
+        AnchorPane overview = fxmlOverview.load(getClass().getResourceAsStream("overview.fxml"));
         OverviewController overviewController = (OverviewController) fxmlOverview.getController();
         overviewController.start(game);
         

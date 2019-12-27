@@ -33,7 +33,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefWidth="840.0" VBox.vgrow="ALWAYS">
+    <AnchorPane fx:id="anchorpane" maxHeight="-1.0" maxWidth="-1.0" prefWidth="840.0" VBox.vgrow="ALWAYS">
          <children>
             <GridPane id="gameBoard" fx:id="gameBoard" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columnConstraints>
